@@ -1,0 +1,639 @@
+\documentclass[a4paper,10pt]{article}
+
+% Package includes
+
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage[svgnames]{xcolor}
+
+\usepackage[colorlinks,citecolor=Navy,linkcolor=Navy]{hyperref}
+\usepackage{placeins}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{comment}
+\usepackage{enumitem}
+\usepackage{verbatimbox}
+\usepackage{amsmath}
+
+\usepackage[olditem,oldenum]{paralist}
+
+% Setup margins
+
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+
+% Useful macros
+
+\newcommand{\note}[1]{{\bf [ NOTE: #1 ]}}
+\newcommand{\fixme}[1]{{\bf [ FIXME: #1 ]}}
+\newcommand{\todo}[1]{\marginpar{\footnotesize #1}}
+
+\newcommand{\wunits}[2]{\mbox{#1\,#2}}
+\newcommand{\um}{\mbox{$\mu$m}}
+\newcommand{\xum}[1]{\wunits{#1}{\um}}
+\newcommand{\by}[2]{\mbox{#1$\times$#2}}
+\newcommand{\byby}[3]{\mbox{#1$\times$#2$\times$#3}}
+
+\newlength\savedwidth
+\newcommand\whline[1]{%
+  \noalign{%
+    \global\savedwidth\arrayrulewidth\global\arrayrulewidth 1.5pt%
+  }%
+  \cline{#1}%
+  \noalign{\vskip\arrayrulewidth}%
+  \noalign{\global\arrayrulewidth\savedwidth}%
+}
+
+% Custom list environments
+
+\newlist{tightlist}{itemize}{1}
+\setlist[tightlist]{label=\textbullet,nosep}
+
+\newenvironment{titledtightlist}[1]
+{\noindent
+ ~~\textbf{#1}
+ \begin{tightlist}}
+{\end{tightlist}}
+
+\newenvironment{commentary}
+{	\vspace{-1.5mm}
+	\list{}{
+		\topsep		0mm
+		\partopsep	0mm
+		\listparindent	1.5em
+		\itemindent	\listparindent
+		\rightmargin	\leftmargin
+		\parsep		0mm
+	}
+	\item
+	\small\em
+	\noindent\nopagebreak\rule{\linewidth}{1pt}\par
+	\noindent\ignorespaces
+}
+{\endlist}
+
+%\newenvironment{discussion}
+%{	\vspace{-1.5mm}
+%	\list{}{
+%		\topsep		0mm
+%		\partopsep	0mm
+%		\listparindent	1.5em
+%		\itemindent	\listparindent
+%		\rightmargin	\leftmargin
+%		\parsep		0mm
+%	}
+%	\item
+%	\small\em
+%	\noindent\nopagebreak\rule{\linewidth}{1pt}\par
+%	\noindent\textbf{Discussion:}
+%}
+%{\endlist}
+
+% Other commands and parameters
+
+\pagestyle{myheadings}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{10pt}
+\sloppy
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+
+% Commands for register format figures.
+
+% New column types to use in tabular environment for instruction formats.
+% Allocate 0.18in per bit.
+\newcolumntype{I}{>{\centering\arraybackslash}p{0.18in}}
+% Two-bit centered column.
+\newcolumntype{W}{>{\centering\arraybackslash}p{0.36in}}
+% Three-bit centered column.
+\newcolumntype{F}{>{\centering\arraybackslash}p{0.54in}}
+% Four-bit centered column.
+\newcolumntype{Y}{>{\centering\arraybackslash}p{0.72in}}
+% Five-bit centered column.
+\newcolumntype{R}{>{\centering\arraybackslash}p{0.9in}}
+% Six-bit centered column.
+\newcolumntype{S}{>{\centering\arraybackslash}p{1.08in}}
+% Seven-bit centered column.
+\newcolumntype{O}{>{\centering\arraybackslash}p{1.26in}}
+% Eight-bit centered column.
+\newcolumntype{E}{>{\centering\arraybackslash}p{1.44in}}
+% Ten-bit centered column.
+\newcolumntype{T}{>{\centering\arraybackslash}p{1.8in}}
+% Twelve-bit centered column.
+\newcolumntype{M}{>{\centering\arraybackslash}p{2.2in}}
+% Sixteen-bit centered column.
+\newcolumntype{K}{>{\centering\arraybackslash}p{2.88in}}
+% Twenty-bit centered column.
+\newcolumntype{U}{>{\centering\arraybackslash}p{3.6in}}
+% Twenty-bit centered column.
+\newcolumntype{L}{>{\centering\arraybackslash}p{3.6in}}
+% Twenty-five-bit centered column.
+\newcolumntype{J}{>{\centering\arraybackslash}p{4.5in}}
+
+\newcommand{\instbit}[1]{\mbox{\scriptsize #1}}
+\newcommand{\instbitrange}[2]{~\instbit{#1} \hfill \instbit{#2}~}
+\newcommand{\reglabel}[1]{\hfill {\tt #1}\hfill\ }
+
+\newcommand{\wiri}{\textbf{WIRI}}
+\newcommand{\wpri}{\textbf{WPRI}}
+\newcommand{\wlrl}{\textbf{WLRL}}
+\newcommand{\warl}{\textbf{WARL}}
+
+\newcommand{\unspecified}{\textsc{unspecified}}
+
+
+\title{CAHPv3 Instruction Set Specification}
+\author{Naoki Matsumoto, Ryotaro Banno, Kotaro Matsuoka}
+\date{2020/09/21}
+
+\begin{document}
+
+\maketitle
+\clearpage
+
+\section{Programmers’Model for CAHPv3 ISA}
+\subsection{Integer Registers}
+\begin{figure}[H]
+    {\footnotesize
+    \begin{center}
+    \begin{tabular}{p{2in}}
+    \instbitrange{15}{0} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x0 / ra(return address)}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x1 / sp(stack pointer)}}  \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x2 / fp(frame pointer)}}  \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x3 / s0}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x4 / s1}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x5 / s2}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x6 / s3}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x7 / s4}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x8 / a0}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x9 / a1}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x10 / a2}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x11 / a3}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x12 / a4}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x13 / a5}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x14 / t0}} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{x15 / t1}} \\ \cline{1-1}
+    \multicolumn{1}{c}{16} \\
+    
+    \instbitrange{15}{0} \\ \cline{1-1}
+    \multicolumn{1}{|c|}{\reglabel{pc}} \\ \cline{1-1}
+    \multicolumn{1}{c}{16} \\
+    \end{tabular}
+    \end{center}
+    }
+    \caption{CAHPv3 integer register state.}
+    \label{gprs}
+\end{figure}
+
+\section{24-bit Length Instructions}
+\subsection{Integer Computational Instructions}
+\subsubsection*{Integer Register-Register Instructions}
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{23}{20} &
+\instbitrange{19}{16} &
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{0} \\
+\hline
+\multicolumn{1}{|c|}{0000} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+4 & 4 & 4 & 4 & 8 \\
+& src2  & src1 & dest & ADD \\
+& src2  & src1 & dest & SUB \\
+& src2  & src1 & dest & AND \\
+& src2  & src1 & dest & XOR \\
+& src2  & src1 & dest & OR  \\
+& src2  & src1 & dest & LSL \\
+& src2  & src1 & dest & LSR \\
+& src2  & src1 & dest & ASR \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      ADD rd, rs1, rs2 & 00000001 & rd \textless- rs1 + rs2 & 
+      \begin{tabular}{l} add rs1 value to rs2 value,  \\ and store to rd \end{tabular} \\ \hline
+      SUB rd, rs1, rs2 & 00001001 & rd \textless- rs1 - rs2 & 
+      \begin{tabular}{l} subtract rs2 value from rs1 value, \\ and store to rd \end{tabular} \\ \hline
+      AND rd, rs1, rs2 & 00010001 & rd \textless- rs1 \& rs2 & 
+      \begin{tabular}{l} do bit between rs1 value and rs2 value, \\ and store to rd \end{tabular} \\ \hline
+      XOR rd, rs1, rs2 & 00011001 & rd \textless- rs1 \textasciicircum \ rs2 & 
+      \begin{tabular}{l} do bit xor between rs1 value and rs2 value, \\ and store to rd \end{tabular} \\ \hline
+      OR  rd, rs1, rs2 & 00100001 & rd \textless- rs1 \textbar \ rs2 & 
+      \begin{tabular}{l} do bit or between rs1 value and rs2 value, \\ and store to rd \end{tabular} \\ \hline
+      LSL rd, rs1, rs2 & 00101001 & rd \textless- rs1 \textless \textless \ rs2 & 
+      \begin{tabular}{l} do left logical shift rs1 value with width rs2 value, \\ and store to rd \end{tabular} \\ \hline
+      LSR rd, rs1, rs2 & 00110001 & rd \textless- rs1 \textgreater \textgreater \ rs2 & 
+      \begin{tabular}{l} do right logical shift rs1 value with width rs2 value, \\ and store to rd \end{tabular} \\ \hline
+      ASR rd, rs1, rs2 & 00111001 & rd \textless- rs1 \textgreater \textgreater \textgreater \ rs2 & 
+      \begin{tabular}{l} do rigth arithmetic shift rs1 value with width rs2 value, \\ and store to rd \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection*{Integer Register-Immediate Instructions}
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{23}{16} &
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{6} &
+\instbitrange{5}{0} \\
+\hline
+\multicolumn{1}{|c|}{simm10[7:0]} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{simm10[9:8]} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+8 & 4 & 4 & 2 & 6 \\
+simm10[7:0] & src  & dest & simm10[9:8] & ADDI \\
+simm10[7:0] & src  & dest & simm10[9:8] & ANDI \\
+simm10[7:0] & src  & dest & simm10[9:8] & XORI \\
+simm10[7:0] & src  & dest & simm10[9:8] & ORI \\
+simm10[7:0] & 0000  & dest & simm10[9:8] & LI \\
+\end{tabular}
+\end{center}
+
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{23}{20} &
+\instbitrange{19}{16} &
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{0} \\
+\hline
+\multicolumn{1}{|c|}{0000} &
+\multicolumn{1}{c|}{uimm4[3:0]} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+4 & 4 & 4 & 4 & 8 \\
+& uimm4[3:0]  & src & dest & LSLI \\
+& uimm4[3:0]  & src & dest & LSRI \\
+& uimm4[3:0]  & src & dest & ASRI \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      ADDI rd, rs1, simm10 & 000011 & rd \textless- rs1 + simm10 & 
+      \begin{tabular}{l} add rs1 value to simm10, \\ and store to rd \end{tabular} \\ \hline
+      ANDI rd, rs1, simm10 & 010011 & rd \textless- rs1 \& simm10 & 
+      \begin{tabular}{l} do bit and between rs1 value and simm10, \\ and store to rd \end{tabular} \\ \hline
+      XORI rd, rs1, simm10 & 011011 & rd \textless- rs1 \textasciicircum \ simm10 & 
+      \begin{tabular}{l} do bit xor between rs1 value and simm10, \\ and store to rd \end{tabular} \\ \hline
+      ORI  rd, rs1, simm10 & 100011 & rd \textless- rs1 \textbar \ simm10 & 
+      \begin{tabular}{l} do bit or between rs1 value and simm10, \\ and store to rd \end{tabular} \\ \hline
+      LI rd, simm10   & 110101 & rd \textless- rs1 \textless \textless \ simm10 & load simm10, and store to rd \\ \hline
+      LSLI rd, rs1, uimm4 & 00101011 & rd \textless- rs1 \textless \textless \ uimm4 & 
+      \begin{tabular}{l} do left logical shift rs1 value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
+      LSRI rd, rs1, uimm4 & 00110011 & rd \textless- rs1 \textgreater \textgreater \ uimm4 & 
+      \begin{tabular}{l} do rigth logical shift rs1 value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
+      ASRI rd, rs1, uimm4 & 00111011 & rd \textless- rs1 \textgreater \textgreater \textgreater \ uimm4 & 
+      \begin{tabular}{l} do right arithmetic shift rs1 value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Conditional Branches}
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{23}{16} &
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{6} &
+\instbitrange{5}{0} \\
+\hline
+\multicolumn{1}{|c|}{simm10[7:0]} &
+\multicolumn{1}{c|}{rs1} &
+\multicolumn{1}{c|}{rs2} &
+\multicolumn{1}{c|}{simm10[9:8]} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+8 & 4 & 4 & 2 & 6 \\
+simm10[7:0]  & src1 & src2 & simm10[9:8] & BEQ \\
+simm10[7:0]  & src1 & src2 & simm10[9:8] & BNE \\
+simm10[7:0]  & src1 & src2 & simm10[9:8] & BLT \\
+simm10[7:0]  & src1 & src2 & simm10[9:8] & BLTU \\
+simm10[7:0]  & src1 & src2 & simm10[9:8] & BLE \\
+simm10[7:0]  & src1 & src2 & simm10[9:8] & BLEU \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{|c|c|l|} \hline
+      Instruction & Opcode & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      BEQ rs1, rs2, simm10 & 001111 & 
+      \begin{tabular}{l} if rs1 value is equal to rs2 value, \\ jump to PC + simm10 \end{tabular} \\ \hline
+      BNE rs1, rs2, simm10 & 101111 & 
+      \begin{tabular}{l} if rs1 value is not equal to rs2 value, \\ jump to PC + simm10 \end{tabular} \\ \hline
+      BLT rs1, rs2, simm10 & 110111 & 
+      \begin{tabular}{l} if rs1 signed value is less than rs2 one, \\ jump to PC + simm10 \end{tabular} \\ \hline
+      BLTU rs1, rs2, simm10 & 010111 & 
+      \begin{tabular}{l} if rs1 unsigned value is less than rs2 one, \\ jump to PC + simm10 \end{tabular} \\ \hline
+      BLE rs1, rs2, simm10 & 111111 & 
+      \begin{tabular}{l} if rs1 signed value is equal or less than rs2 one, \\ jump to PC + simm10 \end{tabular} \\ \hline
+      BLEU rs1, rs2, simm10 & 011111 & 
+      \begin{tabular}{l} if rs1 unsigned value is equal or less than rs2 one, \\ jump to PC + simm10 \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Load and Store Instructions}
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{23}{16} &
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{6} &
+\instbitrange{5}{0} \\
+\hline
+\multicolumn{1}{|c|}{simm10[7:0]} &
+\multicolumn{1}{c|}{rs} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{simm10[9:8]} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+8 & 4 & 4 & 2 & 6 \\
+simm10[7:0]  & src & dest & simm10[9:8] & LW \\
+simm10[7:0]  & src & dest & simm10[9:8] & LB \\
+simm10[7:0]  & src & dest & simm10[9:8] & LBU \\
+\end{tabular}
+\end{center}
+
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{23}{16} &
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{6} &
+\instbitrange{5}{0} \\
+\hline
+\multicolumn{1}{|c|}{simm10[7:0]} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{rs} &
+\multicolumn{1}{c|}{simm10[9:8]} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+8 & 4 & 4 & 2 & 6 \\
+simm10[7:0]  & dest & src & simm10[9:8] & SW \\
+simm10[7:0]  & dest & src & simm10[9:8] & SB \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      LW rd, simm10(rs)  & 010101 & rd \textless- [rs + simm10] & 
+      \begin{tabular}{l} load word value with address rs value + simm10, \\ and store to rd \end{tabular}\\ \hline
+      LB rd, simm10(rs)  & 100101 & rd \textless- [rs + simm10] & 
+      \begin{tabular}{l} load byte value with address rs value + simm10, \\ and store sign extended one to rd \end{tabular} \\ \hline
+      LBU rd, simm10(rs) & 000101 & rd \textless- [rs + simm10] & 
+      \begin{tabular}{l} load byte value with address rs value + simm10, \\ and store to rd without sign extension \end{tabular} \\ \hline
+      SW rs, simm10(rd)  & 001101 & [rd + simm10] \textless- rs & 
+      \begin{tabular}{l} load value from rs, \\ and store word value to address rs value + simm10 \end{tabular} \\ \hline
+      SB rs, simm10(rd)  & 110101 & [rd + simm10] \textless- rs & 
+      \begin{tabular}{l} load value from rs, \\ and store value[7:0] to address rs value + simm10 \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
+\section{16-bit Length Instructions}
+\subsection{Integer Computational Instructions}
+\subsubsection*{Integer Register-Register Instructions}
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{0} \\
+\hline
+\multicolumn{1}{|c|}{rs} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+4 & 4 & 8 \\
+src  & dest & MOV \\
+src  & dest & ADD2 \\
+src  & dest & SUB2 \\
+src  & dest & AND2 \\
+src  & dest & XOR2 \\
+src  & dest & OR2 \\
+src  & dest & LSL2 \\
+src  & dest & LSR2 \\
+src  & dest & ASR2 \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      MOV rd, rs  & 11000000 & rd \textless- rs & load rs value, and store to rd \\ \hline
+      ADD2 rd, rs & 10000000 & rd \textless- rd + rs & 
+      \begin{tabular}{l} add rs1 value to rd value, \\ and store to rd \end{tabular} \\ \hline
+      SUB2 rd, rs & 10001000 & rd \textless- rd - rs & 
+      \begin{tabular}{l} subtract rd value from rs value, \\ and store to rd \end{tabular} \\ \hline
+      AND2 rd, rs & 10010000 & rd \textless- rd \& rs & 
+      \begin{tabular}{l} do bit and between rd value and rs value, \\ and store to rd \end{tabular} \\ \hline
+      XOR2 rd, rs & 10011000 & rd \textless- rd \textasciicircum \ rs & 
+      \begin{tabular}{l} do bit xor between rd value and rs value, \\ and store to rd \end{tabular} \\ \hline
+      OR2  rd, rs & 10100000 & rd \textless- rd \textbar \ rs & 
+      \begin{tabular}{l} do bit or between rd value and rs value, \\ and store to rd \end{tabular} \\ \hline
+      LSL2 rd, rs & 10101000 & rd \textless- rd \textless \textless \ rs & 
+      \begin{tabular}{l} do left logical shift rd value with width rs value, \\ and store to rd \end{tabular} \\ \hline
+      LSR2 rd, rs & 10110000 & rd \textless- rd \textgreater \textgreater \ rs & 
+      \begin{tabular}{l} do right logical shift rd value with width rs value, \\ and store to rd \end{tabular} \\ \hline
+      ASR2 rd, rs & 10111000 & rd \textless- rd \textgreater \textgreater \textgreater \ rs & 
+      \begin{tabular}{l} do right arithmetic shift rd value with width rs value, \\ and store to rd \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection*{Integer Register-Immediate Instructions}
+
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{6} &
+\instbitrange{5}{0} \\
+\hline
+\multicolumn{1}{|c|}{simm6[3:0]} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{|c|}{simm6[5:4]} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+4 & 4 & 2 & 6 \\
+simm6[3:0]  & dest &  simm6[5:4] & ADDI2 \\
+simm6[3:0]  & dest &  simm6[5:4] & ANDI2 \\
+simm6[3:0]  & dest &  simm6[5:4] & LSI \\
+simm6[3:0]  & dest &  simm6[5:4] & LUI \\
+\end{tabular}
+\end{center}
+
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{0} \\
+\hline
+\multicolumn{1}{|c|}{uimm4[3:0]} &
+\multicolumn{1}{c|}{rd} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+4 & 4 & 8 \\
+uimm4[3:0]  & dest & LSLI2 \\
+uimm4[3:0]  & dest & LSRI2 \\
+uimm4[3:0]  & dest & ASRI2 \\
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      ADDI2 rd, simm6 & 000010 & rd \textless- rd + simm6 & 
+      \begin{tabular}{l} add rd value to simm6, \\ and store to rd \end{tabular} \\ \hline
+      ANDI2 rd, simm6 & 010010 & rd \textless- rd \& simm6 & 
+      \begin{tabular}{l} do bit and between rd value and simm6, \\ and store to rd \end{tabular} \\ \hline
+      LSI rd, simm6   & 110100 & rd \textless- simm6 & load simm6, and store to rd \\ \hline
+      LUI rd, simm6   & 000100 & rd \textless- (simm6 \textless \textless 10) & 
+      \begin{tabular}{l} load simm6 with left logical shift with width 10, \\ and store to rd \end{tabular} \\ \hline
+      LSLI2 rd, uimm4 & 00101010 & rd \textless- rd \textless \textless \ uimm4 & 
+      \begin{tabular}{l} do left logical shift rd value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
+      LSRI2 rd, uimm4 & 00110010 & rd \textless- rd \textgreater \textgreater \ uimm4 & 
+      \begin{tabular}{l} do right logical shift rd value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
+      ASRI2 rd, uimm4 & 00111010 & rd \textless- rd \textgreater \textgreater \textgreater \ uimm4 & 
+      \begin{tabular}{l} do rigth arithmetic shift rd value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Unconditional Jumps} 
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{0} \\
+\hline
+\multicolumn{1}{|c|}{0000} &
+\multicolumn{1}{c|}{rs} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+4 & 4 & 8 \\
+& src & JALR \\
+& src & JR \\
+\end{tabular}
+\end{center}
+
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{15}{5} &
+\instbitrange{4}{0} \\
+\hline
+\multicolumn{1}{|c|}{simm11[10:0]} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+11 & 5 \\
+simm11[10:0]  & JS \\
+simm11[10:0]  & JSAL \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      JALR rs     & 00010110 & ra \textless- PC + 2, PC \textless- rs & 
+      \begin{tabular}{l} jump to rs value, \\ and store PC + 2 to return address register ra \end{tabular} \\ \hline
+      JR rs       & 00000110 & PC \textless- rs & jump to rs value \\ \hline
+      JS simm11   & 01110    & PC \textless- PC + simm11 & jump to PC + simm11 \\ \hline
+      JSAL simm11 & 11110    & ra \textless- PC + 2, PC \textless- PC + simm11 & 
+      \begin{tabular}{l} jump to PC + simm11, \\ and store PC + 2 to return address register ra \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Load and Store Instructions}
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{6} &
+\instbitrange{5}{0} \\
+\hline
+\multicolumn{1}{|c|}{uimm7[4:1]} &
+\multicolumn{1}{|c|}{rd} &
+\multicolumn{1}{|c|}{uimm7[6:5]} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+11 & 5 \\
+uimm7[4:1] & dest & uimm7[6:5] & LWSP \\
+\end{tabular}
+\end{center}
+
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{6} &
+\instbitrange{5}{0} \\
+\hline
+\multicolumn{1}{|c|}{uimm7[4:1]} &
+\multicolumn{1}{|c|}{rs} &
+\multicolumn{1}{|c|}{uimm7[6:5]} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+11 & 5 \\
+uimm7[4:1] & src & uimm7[6:5] & SWSP \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      LWSP rd, uimm7(sp) & 010100 & rd \textless- [sp + uimm7] & 
+      \begin{tabular}{l} load word value with address stack pointer \\ register value + uimm7, and store to rd \end{tabular} \\ \hline
+      SWSP rs, uimm7(sp) & 011100 & [sp + uimm7] \textless- rs & 
+      \begin{tabular}{l} store rs value to uimm8 with \\ address stack pointer register value + uimm7 \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
+\section{Instructions List}
+
+\end{document}
