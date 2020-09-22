@@ -231,19 +231,19 @@
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       ADD rd, rs1, rs2 & 00000001 & $\mathrm{rd} \leftarrow \mathrm{rs1} + \mathrm{rs2}$ &
       \begin{tabular}{l} Add rs1 value to rs2 value,\\ and store to rd. \end{tabular} \\ \hline
-          SUB rd, rs1, rs2 & 00001001 & $\mathrm{rd} \leftarrow \mathrm{rs1} - \mathrm{rs2}$ &
+      SUB rd, rs1, rs2 & 00001001 & $\mathrm{rd} \leftarrow \mathrm{rs1} - \mathrm{rs2}$ &
       \begin{tabular}{l} Subtract rs2 value from rs1 value,\\ and store to rd. \end{tabular} \\ \hline
-          AND rd, rs1, rs2 & 00010001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \land \mathrm{rs2}$ &
+      AND rd, rs1, rs2 & 00010001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \land \mathrm{rs2}$ &
       \begin{tabular}{l} Do bit and between rs1 value and rs2 value,\\ and store to rd. \end{tabular} \\ \hline
-          XOR rd, rs1, rs2 & 00011001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \oplus \mathrm{rs2}$ &
+      XOR rd, rs1, rs2 & 00011001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \oplus \mathrm{rs2}$ &
       \begin{tabular}{l} Do bit xor between rs1 value and rs2 value, \\ and store to rd. \end{tabular} \\ \hline
-          OR  rd, rs1, rs2 & 00100001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \lor \mathrm{rs2}$ &
+      OR  rd, rs1, rs2 & 00100001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \lor \mathrm{rs2}$ &
       \begin{tabular}{l} Do bit or between rs1 value and rs2 value, \\ and store to rd. \end{tabular} \\ \hline
-          LSL rd, rs1, rs2 & 00101001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \ll \mathrm{rs2}$ &
+      LSL rd, rs1, rs2 & 00101001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \ll \mathrm{rs2}$ &
       \begin{tabular}{l} Do left logical shift rs1 value with width rs2 value, \\ and store to rd. \end{tabular} \\ \hline
-          LSR rd, rs1, rs2 & 00110001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \gg \mathrm{rs2}$ &
+      LSR rd, rs1, rs2 & 00110001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \gg \mathrm{rs2}$ &
       \begin{tabular}{l} Do right logical shift rs1 value with width rs2 value, \\ and store to rd. \end{tabular} \\ \hline
-          ASR rd, rs1, rs2 & 00111001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \ggg \mathrm{rs2}$ &
+      ASR rd, rs1, rs2 & 00111001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \ggg \mathrm{rs2}$ &
       \begin{tabular}{l} Do right arithmetic shift rs1 value with width rs2 value, \\ and store to rd. \end{tabular} \\ \hline
     \end{tabular}
 \end{center}
