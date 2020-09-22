@@ -274,6 +274,22 @@ simm10[7:0] & 0000  & dest & simm10[9:8] & LI \\
 \end{tabular}
 \end{center}
 
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      ADDI rd, rs1, simm10 & 000011 & $\mathrm{rd} \leftarrow \mathrm{rs1} + \mathrm{simm10}$ &
+      \begin{tabular}{l} Add rs1 value to simm10, \\ and store to rd. \end{tabular} \\ \hline
+      ANDI rd, rs1, simm10 & 010011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \land \mathrm{simm10}$ &
+      \begin{tabular}{l} Do bit and between rs1 value and simm10, \\ and store to rd.\end{tabular} \\ \hline
+      XORI rd, rs1, simm10 & 011011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \oplus \mathrm{simm10}$ &
+      \begin{tabular}{l} Do bit xor between rs1 value and simm10, \\ and store to rd. \end{tabular} \\ \hline
+      ORI  rd, rs1, simm10 & 100011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \lor \mathrm{simm10}$ &
+      \begin{tabular}{l} Do bit or between rs1 value and simm10, \\ and store to rd. \end{tabular} \\ \hline
+      LI rd, simm10   & 110101 & $\mathrm{rd} \leftarrow \mathrm{simm10}$ &
+      \begin{tabular}{l} Load simm10, and store to rd. \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
 \vspace{-0.2in}
 \begin{center}
 \begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
@@ -300,21 +316,12 @@ simm10[7:0] & 0000  & dest & simm10[9:8] & LI \\
 \begin{center}
     \begin{tabular}{|c|c|c|l|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
-      ADDI rd, rs1, simm10 & 000011 & rd \textless- rs1 + simm10 & 
-      \begin{tabular}{l} add rs1 value to simm10, \\ and store to rd \end{tabular} \\ \hline
-      ANDI rd, rs1, simm10 & 010011 & rd \textless- rs1 \& simm10 & 
-      \begin{tabular}{l} do bit and between rs1 value and simm10, \\ and store to rd \end{tabular} \\ \hline
-      XORI rd, rs1, simm10 & 011011 & rd \textless- rs1 \textasciicircum \ simm10 & 
-      \begin{tabular}{l} do bit xor between rs1 value and simm10, \\ and store to rd \end{tabular} \\ \hline
-      ORI  rd, rs1, simm10 & 100011 & rd \textless- rs1 \textbar \ simm10 & 
-      \begin{tabular}{l} do bit or between rs1 value and simm10, \\ and store to rd \end{tabular} \\ \hline
-      LI rd, simm10   & 110101 & rd \textless- rs1 \textless \textless \ simm10 & load simm10, and store to rd \\ \hline
-      LSLI rd, rs1, uimm4 & 00101011 & rd \textless- rs1 \textless \textless \ uimm4 & 
-      \begin{tabular}{l} do left logical shift rs1 value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
-      LSRI rd, rs1, uimm4 & 00110011 & rd \textless- rs1 \textgreater \textgreater \ uimm4 & 
-      \begin{tabular}{l} do rigth logical shift rs1 value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
-      ASRI rd, rs1, uimm4 & 00111011 & rd \textless- rs1 \textgreater \textgreater \textgreater \ uimm4 & 
-      \begin{tabular}{l} do right arithmetic shift rs1 value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
+      LSLI rd, rs1, uimm4 & 00101011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \ll \mathrm{uimm4}$ &
+      \begin{tabular}{l} Do left logical shift rs1 value with width uimm4,\\ and store to rd. \end{tabular} \\ \hline
+      LSRI rd, rs1, uimm4 & 00110011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \gg \mathrm{uimm4}$ &
+      \begin{tabular}{l} Do right logical shift rs1 value with width uimm4,\\ and store to rd. \end{tabular} \\ \hline
+      ASRI rd, rs1, uimm4 & 00111011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \ggg \mathrm{uimm4}$ &
+      \begin{tabular}{l} Do right arithmetic shift rs1 value with width uimm4,\\ and store to rd. \end{tabular} \\ \hline
     \end{tabular}
 \end{center}
 
