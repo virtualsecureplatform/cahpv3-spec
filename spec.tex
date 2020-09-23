@@ -514,6 +514,20 @@ simm6[3:0]  & dest &  simm6[5:4] & LUI \\
 \end{tabular}
 \end{center}
 
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      ADDI2 rd, simm6 & 000010 & $\mathrm{rd} \leftarrow \mathrm{rd} + \mathrm{simm6}$ &
+      \begin{tabular}{l} Add rd value to simm6, \\ and store to rd. \end{tabular} \\ \hline
+      ANDI2 rd, simm6 & 010010 & $\mathrm{rd} \leftarrow \mathrm{rd} \& \mathrm{simm6}$ &
+      \begin{tabular}{l} Do bit and between rd value and simm6, \\ and store to rd. \end{tabular} \\ \hline
+      LSI rd, simm6   & 110100 & $\mathrm{rd} \leftarrow \mathrm{simm6}$ &
+      \begin{tabular}{l} Load simm6, and store to rd. \end{tabular} \\ \hline
+      LUI rd, simm6   & 000100 & $\mathrm{rd} \leftarrow (\mathrm{simm6} \ll \mathrm{10})$ &
+      \begin{tabular}{l} Load simm6 with left logical shift with width 10, \\ and store to rd. \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
 \vspace{-0.2in}
 \begin{center}
 \begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
@@ -533,23 +547,15 @@ uimm4[3:0]  & dest & ASRI2 \\
 \end{tabular}
 \end{center}
 
-
 \begin{center}
     \begin{tabular}{|c|c|c|l|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
-      ADDI2 rd, simm6 & 000010 & rd \textless- rd + simm6 & 
-      \begin{tabular}{l} add rd value to simm6, \\ and store to rd \end{tabular} \\ \hline
-      ANDI2 rd, simm6 & 010010 & rd \textless- rd \& simm6 & 
-      \begin{tabular}{l} do bit and between rd value and simm6, \\ and store to rd \end{tabular} \\ \hline
-      LSI rd, simm6   & 110100 & rd \textless- simm6 & load simm6, and store to rd \\ \hline
-      LUI rd, simm6   & 000100 & rd \textless- (simm6 \textless \textless 10) & 
-      \begin{tabular}{l} load simm6 with left logical shift with width 10, \\ and store to rd \end{tabular} \\ \hline
-      LSLI2 rd, uimm4 & 00101010 & rd \textless- rd \textless \textless \ uimm4 & 
-      \begin{tabular}{l} do left logical shift rd value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
-      LSRI2 rd, uimm4 & 00110010 & rd \textless- rd \textgreater \textgreater \ uimm4 & 
-      \begin{tabular}{l} do right logical shift rd value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
-      ASRI2 rd, uimm4 & 00111010 & rd \textless- rd \textgreater \textgreater \textgreater \ uimm4 & 
-      \begin{tabular}{l} do rigth arithmetic shift rd value with width uimm4, \\ and store to rd \end{tabular} \\ \hline
+      LSLI2 rd, uimm4 & 00101010 & $\mathrm{rd} \leftarrow \mathrm{rd} \ll \mathrm{uimm4}$ &
+      \begin{tabular}{l} Do left logical shift rd value with width uimm4, \\ and store to rd. \end{tabular} \\ \hline
+      LSRI2 rd, uimm4 & 00110010 & $\mathrm{rd} \leftarrow \mathrm{rd} \gg \mathrm{uimm4}$ &
+      \begin{tabular}{l} Do right logical shift rd value with width uimm4, \\ and store to rd. \end{tabular} \\ \hline
+      ASRI2 rd, uimm4 & 00111010 & $\mathrm{rd} \leftarrow \mathrm{rd} \ggg \mathrm{uimm4}$ &
+      \begin{tabular}{l} Do right arithmetic shift rd value with width uimm4, \\ and store to rd. \end{tabular} \\ \hline
     \end{tabular}
 \end{center}
 
