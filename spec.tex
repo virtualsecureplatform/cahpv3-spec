@@ -361,17 +361,17 @@ simm10[7:0]  & src1 & src2 & simm10[9:8] & BLEU \\
     \begin{tabularx}{\textwidth}{|c|c|X|} \hline
       Instruction & Opcode & \multicolumn{1}{c|}{Description} \\ \hline \hline
       BEQ rs1, rs2, simm10 & 001111 &
-      If rs1 value is equal to rs2 value, jump to PC + simm10.  \\ \hline
+      If rs1 value is equal to rs2 value, jump to pc + simm10.  \\ \hline
       BNE rs1, rs2, simm10 & 101111 &
-      If rs1 value is not equal to rs2 value, jump to PC + simm10.  \\ \hline
+      If rs1 value is not equal to rs2 value, jump to pc + simm10.  \\ \hline
       BLT rs1, rs2, simm10 & 110111 &
-      If rs1 signed value is less than rs2 one, jump to PC + simm10.  \\ \hline
+      If rs1 signed value is less than rs2 one, jump to pc + simm10.  \\ \hline
       BLTU rs1, rs2, simm10 & 010111 &
-      If rs1 unsigned value is less than rs2 one, jump to PC + simm10.  \\ \hline
+      If rs1 unsigned value is less than rs2 one, jump to pc + simm10.  \\ \hline
       BLE rs1, rs2, simm10 & 111111 &
-      If rs1 signed value is equal or less than rs2 one, jump to PC + simm10.  \\ \hline
+      If rs1 signed value is equal or less than rs2 one, jump to pc + simm10.  \\ \hline
       BLEU rs1, rs2, simm10 & 011111 &
-      If rs1 unsigned value is equal or less than rs2 one, jump to PC + simm10.  \\ \hline
+      If rs1 unsigned value is equal or less than rs2 one, jump to pc + simm10.  \\ \hline
     \end{tabularx}
 \end{center}
 
@@ -586,9 +586,9 @@ uimm4[3:0]  & dest & ASRI2 \\
 \begin{center}
     \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
-      JALR rs     & 00010110 & \begin{tabular}{@{}c@{}}$\mathrm{ra} \leftarrow \mathrm{PC} + 2$\\$\mathrm{PC} \leftarrow \mathrm{rs}$\end{tabular} &
-      Jump to rs value, and store PC + 2 to return address register ra.  \\ \hline
-      JR rs       & 00000110 & $\mathrm{PC} \leftarrow \mathrm{rs}$ &
+      JALR rs     & 00010110 & \begin{tabular}{@{}c@{}}$\mathrm{ra} \leftarrow \mathrm{pc} + 2$\\$\mathrm{pc} \leftarrow \mathrm{rs}$\end{tabular} &
+      Jump to rs value, and store pc + 2 to return address register ra.  \\ \hline
+      JR rs       & 00000110 & $\mathrm{pc} \leftarrow \mathrm{rs}$ &
       Jump to rs value. \\ \hline
     \end{tabularx}
 \end{center}
@@ -612,10 +612,10 @@ simm11[10:0]  & JSAL \\
 \begin{center}
     \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
-      JS simm11   & 01110    & $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm11}$ &
-      Jump to PC + simm11. \\ \hline
-      JSAL simm11 & 11110    & \begin{tabular}{@{}c@{}}$\mathrm{ra} \leftarrow \mathrm{PC} + 2$\\$\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm11}$\end{tabular} &
-      Jump to PC + simm11, and store PC + 2 to return address register ra.  \\ \hline
+      JS simm11   & 01110    & $\mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm11}$ &
+      Jump to pc + simm11. \\ \hline
+      JSAL simm11 & 11110    & \begin{tabular}{@{}c@{}}$\mathrm{ra} \leftarrow \mathrm{pc} + 2$\\$\mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm11}$\end{tabular} &
+      Jump to pc + simm11, and store pc + 2 to return address register ra.  \\ \hline
     \end{tabularx}
 \end{center}
 
@@ -704,14 +704,14 @@ asri rd, rs1, uimm4   & $\mathrm{rd} \leftarrow \mathrm{rs1} \ggg \mathrm{uimm4}
 
 \hline
 \multicolumn{26}{|c|}{24-bit Conditional Branches}                                                                                                                                                                                                                                                             \\\hline
-beq rs1, rs2, simm10  & if $\mathrm{rs1} = \mathrm{rs2}$ then $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 0   & 0   & 1   & 1 & 1 & 1 \\
-bne rs1, rs2, simm10  & if $\mathrm{rs1} \neq \mathrm{rs2}$ then $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 1   & 0   & 1   & 1 & 1 & 1 \\
-blt rs1, rs2, simm10  & if $\mathrm{rs1} < \mathrm{rs2}$ then $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 1   & 1   & 0   & 1 & 1 & 1 \\
-bltu rs1, rs2, simm10 & if $\mathrm{rs1} < \mathrm{rs2}$ then $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 0   & 1   & 0   & 1 & 1 & 1 \\
-ble rs1, rs2, simm10  & if $\mathrm{rs1} \le \mathrm{rs2}$ then $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 1   & 1   & 1   & 1 & 1 & 1 \\
-bleu rs1, rs2, simm10 & if $\mathrm{rs1} \le \mathrm{rs2}$ then $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 0   & 1   & 1   & 1 & 1 & 1 \\
-j simm16              & $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm16}$ & \multicolumn{16}{c|}{simm16{[}15:0{]}}                                                                                         & 0              & 0              & 0 & 0   & 0   & 1 & 1 & 1 \\
-jal simm16            & $\mathrm{RA} \leftarrow \mathrm{PC} + 4, \mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm16}$ & \multicolumn{16}{c|}{simm16{[}15:0{]}}                                                                                         & 0              & 0              & 0 & 0   & 0   & 1 & 1 & 1 \\
+beq rs1, rs2, simm10  & if $\mathrm{rs1} = \mathrm{rs2}$ then $\mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 0   & 0   & 1   & 1 & 1 & 1 \\
+bne rs1, rs2, simm10  & if $\mathrm{rs1} \neq \mathrm{rs2}$ then $\mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 1   & 0   & 1   & 1 & 1 & 1 \\
+blt rs1, rs2, simm10  & if $\mathrm{rs1} < \mathrm{rs2}$ then $\mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 1   & 1   & 0   & 1 & 1 & 1 \\
+bltu rs1, rs2, simm10 & if $\mathrm{rs1} < \mathrm{rs2}$ then $\mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 0   & 1   & 0   & 1 & 1 & 1 \\
+ble rs1, rs2, simm10  & if $\mathrm{rs1} \le \mathrm{rs2}$ then $\mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 1   & 1   & 1   & 1 & 1 & 1 \\
+bleu rs1, rs2, simm10 & if $\mathrm{rs1} \le \mathrm{rs2}$ then $\mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm10}$ & \multicolumn{8}{c|}{simm10{[}7:0{]}}                        & \multicolumn{4}{c|}{rs1}            & \multicolumn{4}{c|}{rs2}     & \multicolumn{2}{c|}{simm10{[}9:8{]}} & 0   & 1   & 1   & 1 & 1 & 1 \\
+j simm16              & $\mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm16}$ & \multicolumn{16}{c|}{simm16{[}15:0{]}}                                                                                         & 0              & 0              & 0 & 0   & 0   & 1 & 1 & 1 \\
+jal simm16            & $\mathrm{ra} \leftarrow \mathrm{pc} + 4, \mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm16}$ & \multicolumn{16}{c|}{simm16{[}15:0{]}}                                                                                         & 0              & 0              & 0 & 0   & 0   & 1 & 1 & 1 \\
 
 \hline
 \multicolumn{26}{|c|}{24-bit Load and Store Instructions}                                                                                                                                                                                                                                                             \\\hline
@@ -746,10 +746,10 @@ asri2 rd, uimm4       & $\mathrm{rd} \leftarrow \mathrm{rd} \ggg \mathrm{uimm4}$
 
 \hline
 \multicolumn{26}{|c|}{16-bit Unconditional Jumps}                                                                                                                                                                                                                                                             \\\hline
-jalr rs               & $\mathrm{RA} \leftarrow \mathrm{PC} + 2, \mathrm{PC} \leftarrow \mathrm{rs}$ & \multicolumn{8}{c|}{---}                                   & 0      & 0    & 0    & 0   & \multicolumn{4}{c|}{rs(rs1)} & 0              & 0              & 0 & 1   & 0   & 1 & 1 & 0 \\
-jr rs                 & $\mathrm{PC} \leftarrow \mathrm{rs}$ & \multicolumn{8}{c|}{---}                                   & 0      & 0    & 0    & 0   & \multicolumn{4}{c|}{rs(rs1)} & 0              & 0              & 0 & 0   & 0   & 1 & 1 & 0 \\
-js simm11             & $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm11}$ & \multicolumn{8}{c|}{---}                                   & \multicolumn{11}{c|}{simm11{[}10:0{]}}                                                                        & 0   & 1   & 1 & 1 & 0 \\
-jsal simm11           & $\mathrm{RA} \leftarrow \mathrm{PC} + 2, \mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm11}$ & \multicolumn{8}{c|}{---}                                   & \multicolumn{11}{c|}{simm11{[}10:0{]}}                                                                        & 1   & 1   & 1 & 1 & 0 \\
+jalr rs               & $\mathrm{ra} \leftarrow \mathrm{pc} + 2, \mathrm{pc} \leftarrow \mathrm{rs}$ & \multicolumn{8}{c|}{---}                                   & 0      & 0    & 0    & 0   & \multicolumn{4}{c|}{rs(rs1)} & 0              & 0              & 0 & 1   & 0   & 1 & 1 & 0 \\
+jr rs                 & $\mathrm{pc} \leftarrow \mathrm{rs}$ & \multicolumn{8}{c|}{---}                                   & 0      & 0    & 0    & 0   & \multicolumn{4}{c|}{rs(rs1)} & 0              & 0              & 0 & 0   & 0   & 1 & 1 & 0 \\
+js simm11             & $\mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm11}$ & \multicolumn{8}{c|}{---}                                   & \multicolumn{11}{c|}{simm11{[}10:0{]}}                                                                        & 0   & 1   & 1 & 1 & 0 \\
+jsal simm11           & $\mathrm{ra} \leftarrow \mathrm{pc} + 2, \mathrm{pc} \leftarrow \mathrm{pc} + \mathrm{simm11}$ & \multicolumn{8}{c|}{---}                                   & \multicolumn{11}{c|}{simm11{[}10:0{]}}                                                                        & 1   & 1   & 1 & 1 & 0 \\
 
 \hline
 \multicolumn{26}{|c|}{16-bit Load and Store Instructions}                                                                                                                                                                                                                                                             \\\hline
