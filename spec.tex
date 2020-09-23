@@ -469,23 +469,24 @@ src  & dest & ASR2 \\
 \begin{center}
     \begin{tabular}{|c|c|c|l|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
-      MOV rd, rs  & 11000000 & rd \textless- rs & load rs value, and store to rd \\ \hline
-      ADD2 rd, rs & 10000000 & rd \textless- rd + rs & 
-      \begin{tabular}{l} add rs1 value to rd value, \\ and store to rd \end{tabular} \\ \hline
-      SUB2 rd, rs & 10001000 & rd \textless- rd - rs & 
-      \begin{tabular}{l} subtract rd value from rs value, \\ and store to rd \end{tabular} \\ \hline
-      AND2 rd, rs & 10010000 & rd \textless- rd \& rs & 
-      \begin{tabular}{l} do bit and between rd value and rs value, \\ and store to rd \end{tabular} \\ \hline
-      XOR2 rd, rs & 10011000 & rd \textless- rd \textasciicircum \ rs & 
-      \begin{tabular}{l} do bit xor between rd value and rs value, \\ and store to rd \end{tabular} \\ \hline
-      OR2  rd, rs & 10100000 & rd \textless- rd \textbar \ rs & 
-      \begin{tabular}{l} do bit or between rd value and rs value, \\ and store to rd \end{tabular} \\ \hline
-      LSL2 rd, rs & 10101000 & rd \textless- rd \textless \textless \ rs & 
-      \begin{tabular}{l} do left logical shift rd value with width rs value, \\ and store to rd \end{tabular} \\ \hline
-      LSR2 rd, rs & 10110000 & rd \textless- rd \textgreater \textgreater \ rs & 
-      \begin{tabular}{l} do right logical shift rd value with width rs value, \\ and store to rd \end{tabular} \\ \hline
-      ASR2 rd, rs & 10111000 & rd \textless- rd \textgreater \textgreater \textgreater \ rs & 
-      \begin{tabular}{l} do right arithmetic shift rd value with width rs value, \\ and store to rd \end{tabular} \\ \hline
+      MOV rd, rs  & 11000000 & $\mathrm{rd} \leftarrow \mathrm{rs}$ &
+      \begin{tabular}{l} Load rs value, and store to rd. \end{tabular} \\ \hline
+      ADD2 rd, rs & 10000000 & $\mathrm{rd} \leftarrow \mathrm{rd} + \mathrm{rs}$ &
+      \begin{tabular}{l} Add rs1 value to rd value, \\ and store to rd. \end{tabular} \\ \hline
+      SUB2 rd, rs & 10001000 & $\mathrm{rd} \leftarrow \mathrm{rd} - \mathrm{rs}$ &
+      \begin{tabular}{l} Subtract rd value from rs value, \\ and store to rd. \end{tabular} \\ \hline
+      AND2 rd, rs & 10010000 & $\mathrm{rd} \leftarrow \mathrm{rd} \land \mathrm{rs}$ &
+      \begin{tabular}{l} Do bit and between rd value and rs value, \\ and store to rd. \end{tabular} \\ \hline
+      XOR2 rd, rs & 10011000 & $\mathrm{rd} \leftarrow \mathrm{rd} \oplus \mathrm{rs}$ &
+      \begin{tabular}{l} Do bit xor between rd value and rs value, \\ and store to rd. \end{tabular} \\ \hline
+      OR2  rd, rs & 10100000 & $\mathrm{rd} \leftarrow \mathrm{rd} \lor \mathrm{rs}$ &
+      \begin{tabular}{l} Do bit or between rd value and rs value, \\ and store to rd. \end{tabular} \\ \hline
+      LSL2 rd, rs & 10101000 & $\mathrm{rd} \leftarrow \mathrm{rd} \ll \mathrm{rs}$ &
+      \begin{tabular}{l} Do left logical shift rd value with width rs value, \\ and store to rd. \end{tabular} \\ \hline
+      LSR2 rd, rs & 10110000 & $\mathrm{rd} \leftarrow \mathrm{rd} \gg \mathrm{rs}$ &
+      \begin{tabular}{l} Do right logical shift rd value with width rs value, \\ and store to rd. \end{tabular} \\ \hline
+      ASR2 rd, rs & 10111000 & $\mathrm{rd} \leftarrow \mathrm{rd} \ggg \mathrm{rs}$ &
+      \begin{tabular}{l} Do right arithmetic shift rd value with width rs value, \\ and store to rd. \end{tabular} \\ \hline
     \end{tabular}
 \end{center}
 
