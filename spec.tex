@@ -559,7 +559,7 @@ uimm4[3:0]  & dest & ASRI2 \\
     \end{tabular}
 \end{center}
 
-\subsection{Unconditional Jumps} 
+\subsection{Unconditional Jumps}
 \vspace{-0.2in}
 \begin{center}
 \begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
@@ -576,6 +576,16 @@ uimm4[3:0]  & dest & ASRI2 \\
 & src & JALR \\
 & src & JR \\
 \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      JALR rs     & 00010110 & \begin{tabular}{@{}c@{}}$\mathrm{ra} \leftarrow \mathrm{PC} + 2$\\$\mathrm{PC} \leftarrow \mathrm{rs}$\end{tabular} &
+      \begin{tabular}{l} Jump to rs value, \\ and store PC + 2 to return address register ra. \end{tabular} \\ \hline
+      JR rs       & 00000110 & $\mathrm{PC} \leftarrow \mathrm{rs}$ &
+      \begin{tabular}{l} Jump to rs value. \end{tabular} \\ \hline
+    \end{tabular}
 \end{center}
 
 \vspace{-0.2in}
@@ -597,12 +607,10 @@ simm11[10:0]  & JSAL \\
 \begin{center}
     \begin{tabular}{|c|c|c|l|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
-      JALR rs     & 00010110 & ra \textless- PC + 2, PC \textless- rs & 
-      \begin{tabular}{l} jump to rs value, \\ and store PC + 2 to return address register ra \end{tabular} \\ \hline
-      JR rs       & 00000110 & PC \textless- rs & jump to rs value \\ \hline
-      JS simm11   & 01110    & PC \textless- PC + simm11 & jump to PC + simm11 \\ \hline
-      JSAL simm11 & 11110    & ra \textless- PC + 2, PC \textless- PC + simm11 & 
-      \begin{tabular}{l} jump to PC + simm11, \\ and store PC + 2 to return address register ra \end{tabular} \\ \hline
+      JS simm11   & 01110    & $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm11}$ &
+      \begin{tabular}{l} Jump to PC + simm11. \end{tabular} \\ \hline
+      JSAL simm11 & 11110    & \begin{tabular}{@{}c@{}}$\mathrm{ra} \leftarrow \mathrm{PC} + 2$\\$\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm11}$\end{tabular} &
+      \begin{tabular}{l} Jump to PC + simm11, \\ and store PC + 2 to return address register ra. \end{tabular} \\ \hline
     \end{tabular}
 \end{center}
 
