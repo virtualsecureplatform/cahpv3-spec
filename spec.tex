@@ -394,6 +394,18 @@ simm10[7:0]  & src & dest & simm10[9:8] & LBU \\
 \end{tabular}
 \end{center}
 
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      LW rd, simm10(rs)  & 010101 & $\mathrm{rd} \leftarrow [\mathrm{rs} + \mathrm{simm10}]$ &
+      \begin{tabular}{l} Load word value with address rs value + simm10, \\ and store to rd. \end{tabular}\\ \hline
+      LB rd, simm10(rs)  & 100101 & $\mathrm{rd} \leftarrow [\mathrm{rs} + \mathrm{simm10}]$ &
+      \begin{tabular}{l} Load byte value with address rs value + simm10, \\ and store sign extended one to rd. \end{tabular} \\ \hline
+      LBU rd, simm10(rs) & 000101 & $\mathrm{rd} \leftarrow [\mathrm{rs} + \mathrm{simm10}]$ &
+      \begin{tabular}{l} Load byte value with address rs value + simm10, \\ and store to rd without sign extension. \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
 \vspace{-0.2in}
 \begin{center}
 \begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
@@ -419,16 +431,10 @@ simm10[7:0]  & dest & src & simm10[9:8] & SB \\
 \begin{center}
     \begin{tabular}{|c|c|c|l|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
-      LW rd, simm10(rs)  & 010101 & rd \textless- [rs + simm10] & 
-      \begin{tabular}{l} load word value with address rs value + simm10, \\ and store to rd \end{tabular}\\ \hline
-      LB rd, simm10(rs)  & 100101 & rd \textless- [rs + simm10] & 
-      \begin{tabular}{l} load byte value with address rs value + simm10, \\ and store sign extended one to rd \end{tabular} \\ \hline
-      LBU rd, simm10(rs) & 000101 & rd \textless- [rs + simm10] & 
-      \begin{tabular}{l} load byte value with address rs value + simm10, \\ and store to rd without sign extension \end{tabular} \\ \hline
-      SW rs, simm10(rd)  & 001101 & [rd + simm10] \textless- rs & 
-      \begin{tabular}{l} load value from rs, \\ and store word value to address rs value + simm10 \end{tabular} \\ \hline
-      SB rs, simm10(rd)  & 110101 & [rd + simm10] \textless- rs & 
-      \begin{tabular}{l} load value from rs, \\ and store value[7:0] to address rs value + simm10 \end{tabular} \\ \hline
+      SW rs, simm10(rd)  & 001101 & $[\mathrm{rd} + \mathrm{simm10}] \leftarrow \mathrm{rs}$ &
+      \begin{tabular}{l} Load value from rs, \\ and store word value to address rs value + simm10. \end{tabular} \\ \hline
+      SB rs, simm10(rd)  & 110101 & $[\mathrm{rd} + \mathrm{simm10}] \leftarrow \mathrm{rs}$ &
+      \begin{tabular}{l} Load value from rs, \\ and store value[7:0] to address rs value + simm10. \end{tabular} \\ \hline
     \end{tabular}
 \end{center}
 
