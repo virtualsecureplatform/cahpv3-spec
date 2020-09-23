@@ -20,6 +20,9 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
+\usepackage{tabularx}
+\renewcommand\tabularxcolumn[1]{m{#1}}
+
 \usepackage[olditem,oldenum]{paralist}
 
 % Setup margins
@@ -184,7 +187,7 @@
     \multicolumn{1}{|c|}{\reglabel{x14 / t0}} \\ \cline{1-1}
     \multicolumn{1}{|c|}{\reglabel{x15 / t1}} \\ \cline{1-1}
     \multicolumn{1}{c}{16} \\
-    
+
     \instbitrange{15}{0} \\ \cline{1-1}
     \multicolumn{1}{|c|}{\reglabel{pc}} \\ \cline{1-1}
     \multicolumn{1}{c}{16} \\
@@ -227,25 +230,25 @@
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       ADD rd, rs1, rs2 & 00000001 & $\mathrm{rd} \leftarrow \mathrm{rs1} + \mathrm{rs2}$ &
-      \begin{tabular}{l} Add rs1 value to rs2 value,\\ and store to rd. \end{tabular} \\ \hline
+      Add rs1 value to rs2 value, and store to rd. \\ \hline
       SUB rd, rs1, rs2 & 00001001 & $\mathrm{rd} \leftarrow \mathrm{rs1} - \mathrm{rs2}$ &
-      \begin{tabular}{l} Subtract rs2 value from rs1 value,\\ and store to rd. \end{tabular} \\ \hline
+      Subtract rs2 value from rs1 value, and store to rd.  \\ \hline
       AND rd, rs1, rs2 & 00010001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \land \mathrm{rs2}$ &
-      \begin{tabular}{l} Do bit and between rs1 value and rs2 value,\\ and store to rd. \end{tabular} \\ \hline
+      Do bit and between rs1 value and rs2 value, and store to rd.  \\ \hline
       XOR rd, rs1, rs2 & 00011001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \oplus \mathrm{rs2}$ &
-      \begin{tabular}{l} Do bit xor between rs1 value and rs2 value, \\ and store to rd. \end{tabular} \\ \hline
+      Do bit xor between rs1 value and rs2 value, and store to rd.  \\ \hline
       OR  rd, rs1, rs2 & 00100001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \lor \mathrm{rs2}$ &
-      \begin{tabular}{l} Do bit or between rs1 value and rs2 value, \\ and store to rd. \end{tabular} \\ \hline
+      Do bit or between rs1 value and rs2 value, and store to rd.  \\ \hline
       LSL rd, rs1, rs2 & 00101001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \ll \mathrm{rs2}$ &
-      \begin{tabular}{l} Do left logical shift rs1 value with width rs2 value, \\ and store to rd. \end{tabular} \\ \hline
+      Do left logical shift rs1 value with width rs2 value, and store to rd. \\ \hline
       LSR rd, rs1, rs2 & 00110001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \gg \mathrm{rs2}$ &
-      \begin{tabular}{l} Do right logical shift rs1 value with width rs2 value, \\ and store to rd. \end{tabular} \\ \hline
+      Do right logical shift rs1 value with width rs2 value, and store to rd. \\ \hline
       ASR rd, rs1, rs2 & 00111001 & $\mathrm{rd} \leftarrow \mathrm{rs1} \ggg \mathrm{rs2}$ &
-      \begin{tabular}{l} Do right arithmetic shift rs1 value with width rs2 value, \\ and store to rd. \end{tabular} \\ \hline
-    \end{tabular}
+      Do right arithmetic shift rs1 value with width rs2 value, and store to rd.\\ \hline
+    \end{tabularx}
 \end{center}
 
 \subsubsection*{Integer Register-Immediate Instructions}
@@ -275,19 +278,19 @@ simm10[7:0] & 0000  & dest & simm10[9:8] & LI \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       ADDI rd, rs1, simm10 & 000011 & $\mathrm{rd} \leftarrow \mathrm{rs1} + \mathrm{simm10}$ &
-      \begin{tabular}{l} Add rs1 value to simm10, \\ and store to rd. \end{tabular} \\ \hline
+      Add rs1 value to simm10, and store to rd.  \\ \hline
       ANDI rd, rs1, simm10 & 010011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \land \mathrm{simm10}$ &
-      \begin{tabular}{l} Do bit and between rs1 value and simm10, \\ and store to rd.\end{tabular} \\ \hline
+      Do bit and between rs1 value and simm10, and store to rd. \\ \hline
       XORI rd, rs1, simm10 & 011011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \oplus \mathrm{simm10}$ &
-      \begin{tabular}{l} Do bit xor between rs1 value and simm10, \\ and store to rd. \end{tabular} \\ \hline
+      Do bit xor between rs1 value and simm10, and store to rd.  \\ \hline
       ORI  rd, rs1, simm10 & 100011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \lor \mathrm{simm10}$ &
-      \begin{tabular}{l} Do bit or between rs1 value and simm10, \\ and store to rd. \end{tabular} \\ \hline
+      Do bit or between rs1 value and simm10, and store to rd.  \\ \hline
       LI rd, simm10   & 110101 & $\mathrm{rd} \leftarrow \mathrm{simm10}$ &
-      \begin{tabular}{l} Load simm10, and store to rd. \end{tabular} \\ \hline
-    \end{tabular}
+      Load simm10, and store to rd. \\ \hline
+    \end{tabularx}
 \end{center}
 
 \vspace{-0.2in}
@@ -314,15 +317,15 @@ simm10[7:0] & 0000  & dest & simm10[9:8] & LI \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       LSLI rd, rs1, uimm4 & 00101011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \ll \mathrm{uimm4}$ &
-      \begin{tabular}{l} Do left logical shift rs1 value with width uimm4,\\ and store to rd. \end{tabular} \\ \hline
+      Do left logical shift rs1 value with width uimm4, and store to rd.  \\ \hline
       LSRI rd, rs1, uimm4 & 00110011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \gg \mathrm{uimm4}$ &
-      \begin{tabular}{l} Do right logical shift rs1 value with width uimm4,\\ and store to rd. \end{tabular} \\ \hline
+      Do right logical shift rs1 value with width uimm4, and store to rd.  \\ \hline
       ASRI rd, rs1, uimm4 & 00111011 & $\mathrm{rd} \leftarrow \mathrm{rs1} \ggg \mathrm{uimm4}$ &
-      \begin{tabular}{l} Do right arithmetic shift rs1 value with width uimm4,\\ and store to rd. \end{tabular} \\ \hline
-    \end{tabular}
+      Do right arithmetic shift rs1 value with width uimm4, and store to rd.  \\ \hline
+    \end{tabularx}
 \end{center}
 
 \subsection{Conditional Branches}
@@ -353,21 +356,21 @@ simm10[7:0]  & src1 & src2 & simm10[9:8] & BLEU \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|X|} \hline
       Instruction & Opcode & \multicolumn{1}{c|}{Description} \\ \hline \hline
       BEQ rs1, rs2, simm10 & 001111 &
-      \begin{tabular}{l} If rs1 value is equal to rs2 value, \\ jump to PC + simm10. \end{tabular} \\ \hline
+      If rs1 value is equal to rs2 value, jump to PC + simm10.  \\ \hline
       BNE rs1, rs2, simm10 & 101111 &
-      \begin{tabular}{l} If rs1 value is not equal to rs2 value, \\ jump to PC + simm10. \end{tabular} \\ \hline
+      If rs1 value is not equal to rs2 value, jump to PC + simm10.  \\ \hline
       BLT rs1, rs2, simm10 & 110111 &
-      \begin{tabular}{l} If rs1 signed value is less than rs2 one, \\ jump to PC + simm10. \end{tabular} \\ \hline
+      If rs1 signed value is less than rs2 one, jump to PC + simm10.  \\ \hline
       BLTU rs1, rs2, simm10 & 010111 &
-      \begin{tabular}{l} If rs1 unsigned value is less than rs2 one, \\ jump to PC + simm10. \end{tabular} \\ \hline
+      If rs1 unsigned value is less than rs2 one, jump to PC + simm10.  \\ \hline
       BLE rs1, rs2, simm10 & 111111 &
-      \begin{tabular}{l} If rs1 signed value is equal or less than rs2 one, \\ jump to PC + simm10. \end{tabular} \\ \hline
+      If rs1 signed value is equal or less than rs2 one, jump to PC + simm10.  \\ \hline
       BLEU rs1, rs2, simm10 & 011111 &
-      \begin{tabular}{l} If rs1 unsigned value is equal or less than rs2 one, \\ jump to PC + simm10. \end{tabular} \\ \hline
-    \end{tabular}
+      If rs1 unsigned value is equal or less than rs2 one, jump to PC + simm10.  \\ \hline
+    \end{tabularx}
 \end{center}
 
 \subsection{Load and Store Instructions}
@@ -395,15 +398,15 @@ simm10[7:0]  & src & dest & simm10[9:8] & LBU \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       LW rd, simm10(rs)  & 010101 & $\mathrm{rd} \leftarrow [\mathrm{rs} + \mathrm{simm10}]$ &
-      \begin{tabular}{l} Load word value with address rs value + simm10, \\ and store to rd. \end{tabular}\\ \hline
+      Load word value with address rs value + simm10, and store to rd. \\ \hline
       LB rd, simm10(rs)  & 100101 & $\mathrm{rd} \leftarrow [\mathrm{rs} + \mathrm{simm10}]$ &
-      \begin{tabular}{l} Load byte value with address rs value + simm10, \\ and store sign extended one to rd. \end{tabular} \\ \hline
+      Load byte value with address rs value + simm10, and store sign extended one to rd.  \\ \hline
       LBU rd, simm10(rs) & 000101 & $\mathrm{rd} \leftarrow [\mathrm{rs} + \mathrm{simm10}]$ &
-      \begin{tabular}{l} Load byte value with address rs value + simm10, \\ and store to rd without sign extension. \end{tabular} \\ \hline
-    \end{tabular}
+      Load byte value with address rs value + simm10, and store to rd without sign extension.  \\ \hline
+    \end{tabularx}
 \end{center}
 
 \vspace{-0.2in}
@@ -429,13 +432,13 @@ simm10[7:0]  & dest & src & simm10[9:8] & SB \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       SW rs, simm10(rd)  & 001101 & $[\mathrm{rd} + \mathrm{simm10}] \leftarrow \mathrm{rs}$ &
-      \begin{tabular}{l} Load value from rs, \\ and store word value to address rs value + simm10. \end{tabular} \\ \hline
+      Load value from rs, and store word value to address rs value + simm10.  \\ \hline
       SB rs, simm10(rd)  & 110101 & $[\mathrm{rd} + \mathrm{simm10}] \leftarrow \mathrm{rs}$ &
-      \begin{tabular}{l} Load value from rs, \\ and store value[7:0] to address rs value + simm10. \end{tabular} \\ \hline
-    \end{tabular}
+      Load value from rs, and store value[7:0] to address rs value + simm10.  \\ \hline
+    \end{tabularx}
 \end{center}
 
 \section{16-bit Length Instructions}
@@ -467,27 +470,27 @@ src  & dest & ASR2 \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       MOV rd, rs  & 11000000 & $\mathrm{rd} \leftarrow \mathrm{rs}$ &
-      \begin{tabular}{l} Load rs value, and store to rd. \end{tabular} \\ \hline
+      Load rs value, and store to rd. \\ \hline
       ADD2 rd, rs & 10000000 & $\mathrm{rd} \leftarrow \mathrm{rd} + \mathrm{rs}$ &
-      \begin{tabular}{l} Add rs1 value to rd value, \\ and store to rd. \end{tabular} \\ \hline
+      Add rs1 value to rd value, and store to rd.  \\ \hline
       SUB2 rd, rs & 10001000 & $\mathrm{rd} \leftarrow \mathrm{rd} - \mathrm{rs}$ &
-      \begin{tabular}{l} Subtract rd value from rs value, \\ and store to rd. \end{tabular} \\ \hline
+      Subtract rd value from rs value, and store to rd.  \\ \hline
       AND2 rd, rs & 10010000 & $\mathrm{rd} \leftarrow \mathrm{rd} \land \mathrm{rs}$ &
-      \begin{tabular}{l} Do bit and between rd value and rs value, \\ and store to rd. \end{tabular} \\ \hline
+      Do bit and between rd value and rs value, and store to rd.  \\ \hline
       XOR2 rd, rs & 10011000 & $\mathrm{rd} \leftarrow \mathrm{rd} \oplus \mathrm{rs}$ &
-      \begin{tabular}{l} Do bit xor between rd value and rs value, \\ and store to rd. \end{tabular} \\ \hline
+      Do bit xor between rd value and rs value, and store to rd.  \\ \hline
       OR2  rd, rs & 10100000 & $\mathrm{rd} \leftarrow \mathrm{rd} \lor \mathrm{rs}$ &
-      \begin{tabular}{l} Do bit or between rd value and rs value, \\ and store to rd. \end{tabular} \\ \hline
+      Do bit or between rd value and rs value, and store to rd.  \\ \hline
       LSL2 rd, rs & 10101000 & $\mathrm{rd} \leftarrow \mathrm{rd} \ll \mathrm{rs}$ &
-      \begin{tabular}{l} Do left logical shift rd value with width rs value, \\ and store to rd. \end{tabular} \\ \hline
+      Do left logical shift rd value with width rs value, and store to rd.  \\ \hline
       LSR2 rd, rs & 10110000 & $\mathrm{rd} \leftarrow \mathrm{rd} \gg \mathrm{rs}$ &
-      \begin{tabular}{l} Do right logical shift rd value with width rs value, \\ and store to rd. \end{tabular} \\ \hline
+      Do right logical shift rd value with width rs value, and store to rd.  \\ \hline
       ASR2 rd, rs & 10111000 & $\mathrm{rd} \leftarrow \mathrm{rd} \ggg \mathrm{rs}$ &
-      \begin{tabular}{l} Do right arithmetic shift rd value with width rs value, \\ and store to rd. \end{tabular} \\ \hline
-    \end{tabular}
+      Do right arithmetic shift rd value with width rs value, and store to rd.  \\ \hline
+    \end{tabularx}
 \end{center}
 
 \subsubsection*{Integer Register-Immediate Instructions}
@@ -515,17 +518,17 @@ simm6[3:0]  & dest &  simm6[5:4] & LUI \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       ADDI2 rd, simm6 & 000010 & $\mathrm{rd} \leftarrow \mathrm{rd} + \mathrm{simm6}$ &
-      \begin{tabular}{l} Add rd value to simm6, \\ and store to rd. \end{tabular} \\ \hline
-      ANDI2 rd, simm6 & 010010 & $\mathrm{rd} \leftarrow \mathrm{rd} \& \mathrm{simm6}$ &
-      \begin{tabular}{l} Do bit and between rd value and simm6, \\ and store to rd. \end{tabular} \\ \hline
+      Add rd value to simm6, and store to rd.  \\ \hline
+      ANDI2 rd, simm6 & 010010 & $\mathrm{rd} \leftarrow \mathrm{rd} \land \mathrm{simm6}$ &
+      Do bit and between rd value and simm6, and store to rd.  \\ \hline
       LSI rd, simm6   & 110100 & $\mathrm{rd} \leftarrow \mathrm{simm6}$ &
-      \begin{tabular}{l} Load simm6, and store to rd. \end{tabular} \\ \hline
+      Load simm6, and store to rd. \\ \hline
       LUI rd, simm6   & 000100 & $\mathrm{rd} \leftarrow (\mathrm{simm6} \ll \mathrm{10})$ &
-      \begin{tabular}{l} Load simm6 with left logical shift with width 10, \\ and store to rd. \end{tabular} \\ \hline
-    \end{tabular}
+      Load simm6 with left logical shift with width 10, and store to rd.  \\ \hline
+    \end{tabularx}
 \end{center}
 
 \vspace{-0.2in}
@@ -548,15 +551,15 @@ uimm4[3:0]  & dest & ASRI2 \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       LSLI2 rd, uimm4 & 00101010 & $\mathrm{rd} \leftarrow \mathrm{rd} \ll \mathrm{uimm4}$ &
-      \begin{tabular}{l} Do left logical shift rd value with width uimm4, \\ and store to rd. \end{tabular} \\ \hline
+      Do left logical shift rd value with width uimm4, and store to rd.  \\ \hline
       LSRI2 rd, uimm4 & 00110010 & $\mathrm{rd} \leftarrow \mathrm{rd} \gg \mathrm{uimm4}$ &
-      \begin{tabular}{l} Do right logical shift rd value with width uimm4, \\ and store to rd. \end{tabular} \\ \hline
+      Do right logical shift rd value with width uimm4, and store to rd.  \\ \hline
       ASRI2 rd, uimm4 & 00111010 & $\mathrm{rd} \leftarrow \mathrm{rd} \ggg \mathrm{uimm4}$ &
-      \begin{tabular}{l} Do right arithmetic shift rd value with width uimm4, \\ and store to rd. \end{tabular} \\ \hline
-    \end{tabular}
+      Do right arithmetic shift rd value with width uimm4, and store to rd.  \\ \hline
+    \end{tabularx}
 \end{center}
 
 \subsection{Unconditional Jumps}
@@ -579,13 +582,13 @@ uimm4[3:0]  & dest & ASRI2 \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       JALR rs     & 00010110 & \begin{tabular}{@{}c@{}}$\mathrm{ra} \leftarrow \mathrm{PC} + 2$\\$\mathrm{PC} \leftarrow \mathrm{rs}$\end{tabular} &
-      \begin{tabular}{l} Jump to rs value, \\ and store PC + 2 to return address register ra. \end{tabular} \\ \hline
+      Jump to rs value, and store PC + 2 to return address register ra.  \\ \hline
       JR rs       & 00000110 & $\mathrm{PC} \leftarrow \mathrm{rs}$ &
-      \begin{tabular}{l} Jump to rs value. \end{tabular} \\ \hline
-    \end{tabular}
+      Jump to rs value. \\ \hline
+    \end{tabularx}
 \end{center}
 
 \vspace{-0.2in}
@@ -605,13 +608,13 @@ simm11[10:0]  & JSAL \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       JS simm11   & 01110    & $\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm11}$ &
-      \begin{tabular}{l} Jump to PC + simm11. \end{tabular} \\ \hline
+      Jump to PC + simm11. \\ \hline
       JSAL simm11 & 11110    & \begin{tabular}{@{}c@{}}$\mathrm{ra} \leftarrow \mathrm{PC} + 2$\\$\mathrm{PC} \leftarrow \mathrm{PC} + \mathrm{simm11}$\end{tabular} &
-      \begin{tabular}{l} Jump to PC + simm11, \\ and store PC + 2 to return address register ra. \end{tabular} \\ \hline
-    \end{tabular}
+      Jump to PC + simm11, and store PC + 2 to return address register ra.  \\ \hline
+    \end{tabularx}
 \end{center}
 
 \subsection{Load and Store Instructions}
@@ -635,11 +638,11 @@ uimm7[4:1] & dest & uimm7[6:5] & LWSP \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       LWSP rd, uimm7(sp) & 010100 & $\mathrm{rd} \leftarrow [\mathrm{sp} + \mathrm{uimm7}]$ &
-      \begin{tabular}{l} Load word value with address stack pointer \\ register value + uimm7, and store to rd. \end{tabular} \\ \hline
-    \end{tabular}
+      Load word value with address stack pointer   register value + uimm7, and store to rd.  \\ \hline
+    \end{tabularx}
 \end{center}
 
 \vspace{-0.2in}
@@ -662,11 +665,11 @@ uimm7[4:1] & src & uimm7[6:5] & SWSP \\
 \end{center}
 
 \begin{center}
-    \begin{tabular}{|c|c|c|l|} \hline
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
       SWSP rs, uimm7(sp) & 011100 & $[\mathrm{sp} + \mathrm{uimm7}] \leftarrow \mathrm{rs}$ &
-      \begin{tabular}{l} Store rs value to uimm8 with \\ address stack pointer register value + uimm7. \end{tabular} \\ \hline
-    \end{tabular}
+      Store rs value to uimm8 with   address stack pointer register value + uimm7.  \\ \hline
+    \end{tabularx}
 \end{center}
 
 \section{Instructions List}
