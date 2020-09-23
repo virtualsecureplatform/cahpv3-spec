@@ -674,6 +674,33 @@ uimm7[4:1] & src & uimm7[6:5] & SWSP \\
     \end{tabularx}
 \end{center}
 
+\subsection{Others}
+\vspace{-0.2in}
+\begin{center}
+\begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
+\\
+\instbitrange{15}{12} &
+\instbitrange{11}{8} &
+\instbitrange{7}{6} &
+\instbitrange{5}{0} \\
+\hline
+\multicolumn{1}{|c|}{uimm7[4:1]} &
+\multicolumn{1}{|c|}{rd} &
+\multicolumn{1}{|c|}{uimm7[6:5]} &
+\multicolumn{1}{c|}{opcode} \\
+\hline
+11 & 5 \\
+uimm7[4:1] & dest & uimm7[6:5] & NOP \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{|c|c|c|X|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      NOP & 000000 & --- & No operation.  \\ \hline
+    \end{tabularx}
+\end{center}
+
 \section{Instructions List}
 
 %\clearpage\newgeometry{margin=0.5in}
