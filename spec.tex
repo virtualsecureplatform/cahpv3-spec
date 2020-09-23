@@ -634,6 +634,14 @@ uimm7[4:1] & dest & uimm7[6:5] & LWSP \\
 \end{tabular}
 \end{center}
 
+\begin{center}
+    \begin{tabular}{|c|c|c|l|} \hline
+      Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
+      LWSP rd, uimm7(sp) & 010100 & $\mathrm{rd} \leftarrow [\mathrm{sp} + \mathrm{uimm7}]$ &
+      \begin{tabular}{l} Load word value with address stack pointer \\ register value + uimm7, and store to rd. \end{tabular} \\ \hline
+    \end{tabular}
+\end{center}
+
 \vspace{-0.2in}
 \begin{center}
 \begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
@@ -656,10 +664,8 @@ uimm7[4:1] & src & uimm7[6:5] & SWSP \\
 \begin{center}
     \begin{tabular}{|c|c|c|l|} \hline
       Instruction & Opcode & Formula & \multicolumn{1}{c|}{Description} \\ \hline \hline
-      LWSP rd, uimm7(sp) & 010100 & rd \textless- [sp + uimm7] & 
-      \begin{tabular}{l} load word value with address stack pointer \\ register value + uimm7, and store to rd \end{tabular} \\ \hline
-      SWSP rs, uimm7(sp) & 011100 & [sp + uimm7] \textless- rs & 
-      \begin{tabular}{l} store rs value to uimm8 with \\ address stack pointer register value + uimm7 \end{tabular} \\ \hline
+      SWSP rs, uimm7(sp) & 011100 & $[\mathrm{sp} + \mathrm{uimm7}] \leftarrow \mathrm{rs}$ &
+      \begin{tabular}{l} Store rs value to uimm8 with \\ address stack pointer register value + uimm7. \end{tabular} \\ \hline
     \end{tabular}
 \end{center}
 
