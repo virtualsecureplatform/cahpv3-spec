@@ -679,18 +679,14 @@ uimm7[4:1] & src & uimm7[6:5] & SWSP \\
 \begin{center}
 \begin{tabular}{S@{}R@{}R@{}S@{}R@{}O}
 \\
-\instbitrange{15}{12} &
-\instbitrange{11}{8} &
-\instbitrange{7}{6} &
+\instbitrange{15}{6} &
 \instbitrange{5}{0} \\
 \hline
-\multicolumn{1}{|c|}{uimm7[4:1]} &
-\multicolumn{1}{|c|}{rd} &
-\multicolumn{1}{|c|}{uimm7[6:5]} &
+\multicolumn{1}{|c|}{ --- } &
 \multicolumn{1}{c|}{opcode} \\
 \hline
 11 & 5 \\
-uimm7[4:1] & dest & uimm7[6:5] & NOP \\
+& NOP \\
 \end{tabular}
 \end{center}
 
